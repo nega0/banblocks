@@ -1,1 +1,9 @@
 language: perl
+env: PERL_CPANM_OPT="--notest --force --skip-satisfied"
+before_install:
+   - "cpanm Smart::Comments"
+   - "cpanm Net::CIDR"
+   - "cpanm IPTables::Parse"
+   - "git config --global github.user nega0"
+install:
+  - "true"

@@ -1,0 +1,48 @@
+#!/usr/bin/perl -w -- -*- mode: cperl -*-
+
+use Test::More;
+use Smart::Comments;
+use feature qw(say);
+use warnings;
+use strict;
+
+## #
+
+subtest 'load program' => sub {
+  require_ok( './banblocks' );
+};
+
+subtest 'test innards' => sub {
+  ok( defined &run, '&run subroutine is defined' );
+  ok( defined &already_banned, '&already_banned is defined' );
+  ok( defined &get_block, '&get_block is defined' );
+  ok( defined &init_ban_blocks, '&init_ban_blocks is defined' );
+  ok( defined &trim, '&trim is defined' );
+};
+
+TODO: {
+  local $TODO = "unimplemented tests";
+
+  subtest 'test &already_banned' => sub {1;};
+  subtest 'test &init_ban_blocks' => sub {1;};
+}
+
+subtest 'testing &get_block' => sub {
+  my $whois = undef;
+  foreach my $w (split /:/, $ENV{'PATH'}) {
+    next unless (-X "$w/whois");
+    $whois="$w/whois";
+    last;
+  }
+  if($whois) {
+    ok(get_block('180.212.198.171'), 'do whois');
+  }
+};
+
+subtest 'testing &trim' => sub {
+  is(trim(' a'),  'a', "whitespace at beginning of string");
+  is(trim('a '),  'a', "           at end of string");
+  is(trim(' a '), 'a', "           at both");
+};
+
+done_testing();

@@ -4,6 +4,8 @@ before_install:
    - "cpanm Smart::Comments"
    - "cpanm Net::CIDR"
    - "cpanm IPTables::Parse"
+   - "sudo apt-get -y -qq update"
+   - "sudo apt-get -y -qq install whois"
    - "git config --global github.user nega0"
 install:
   - "true"

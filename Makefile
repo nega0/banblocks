@@ -4,6 +4,6 @@ all:
 install:
 
 test:
-	@t/00tests
+	@t/00tests.t
 
 .PHONY: all install test

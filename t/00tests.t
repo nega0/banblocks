@@ -2,6 +2,7 @@
 # -*- mode: cperl -*-
 
 use Test::More;
+use File::Temp qw/tempfile/;
 #use Smart::Comments;
 use feature qw(say);
 use warnings;
@@ -21,12 +22,25 @@ subtest 'test innards' => sub {
   ok( defined &trim, '&trim is defined' );
 };
 
-TODO: {
-  local $TODO = "unimplemented tests";
+subtest 'testing &init_ban_blocks' => sub {
+  my $c = << 'HERE';
+Chain TEMP_BLOCK (1 references)
+target     prot opt source               destination
+DROP       all  --  180.212.0.0/15       0.0.0.0/0
+HERE
+  my ($fh, $file) = tempfile();
+  print $fh $c;
+  ok(init_ban_blocks($file), 'initialize banned blocks');
+  close $fh;
+};
 
-  subtest 'test &already_banned' => sub {1;};
-  subtest 'test &init_ban_blocks' => sub {1;};
-}
+subtest 'testing &already_banned' => sub {
+  our $ar;
+  $ar = ();
+  push @{$ar}, ('180.212.0.0/15');
+  ### ar: $ar
+  ok(already_banned('180.212.198.171'), 'already banned');
+};
 
 subtest 'testing &get_block' => sub {
   my $whois = undef;

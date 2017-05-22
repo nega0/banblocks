@@ -1,4 +1,5 @@
-#!/usr/bin/perl -w -- -*- mode: cperl -*-
+#!/usr/bin/env perl
+# -*- mode: cperl -*-
 
 # Copyright (C) 2017  nega0 <nega0@users.noreply.github.com>
 

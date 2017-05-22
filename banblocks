@@ -63,9 +63,10 @@ HERE
     }
   };
 
-  getopts('h:f:i:v');
-  if (!defined($opt_h) or ($opt_h eq 'elp')) {
+  getopts('hf:i:v');
+  if ($opt_h) {
     main::HELP_MESSAGE();
+    exit;
   }
   die "[*] -i is a required option.\n[*] I need to know what interface to write rules for,"
     unless $opt_i;

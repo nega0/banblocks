@@ -2,6 +2,8 @@
 all:
 
 install:
+	@install -d $(HOME)/bin
+	@install banblocks $(HOME)/bin/
 
 test:
 	@t/00tests.t

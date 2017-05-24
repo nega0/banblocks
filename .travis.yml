@@ -4,8 +4,16 @@ before_install:
    - "cpanm Smart::Comments"
    - "cpanm Net::CIDR"
    - "cpanm IPTables::Parse"
+   - "cpanm Devel::Cover"
+   - "cpanm Devel::Cover::Report::Codecov"
    - "sudo apt-get -y -qq update"
    - "sudo apt-get -y -qq install whois"
    - "git config --global github.user nega0"
 install:
-  - "true"
+   - "true"
+before_script:
+   - cover -delete
+script:
+   - HARNESS_PERL_SWITCHES='-MDevel::Cover=+ignore,^local/|^t/' prove -r t
+after_success:
+   - cover -report codecov
